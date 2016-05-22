@@ -1,8 +1,10 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 
 export function TextInput({value, placeholder, onChange, id}) {
   return (
-    <input
+    <TextField
+      name={id}
       type='text'
       value={value}
       placeholder={placeholder}
