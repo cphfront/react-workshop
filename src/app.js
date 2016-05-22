@@ -18,8 +18,10 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isActive: false,
-      name: '',
-      age: ''
+      formData: {
+        name: '',
+        age: ''
+      }
     };
     this.toggleActiveState = this.toggleActiveState.bind(this);
     this.handleFormFieldChange = this.handleFormFieldChange.bind(this);
@@ -37,8 +39,7 @@ export default class App extends React.Component {
         <h1>Marathon Estimate</h1>
         <Form
           fields={fields}
-          name={this.state.name}
-          age={this.state.age}
+          formData={this.state.formData}
           onChange={this.handleFormFieldChange}
         />
       </div>
@@ -53,7 +54,9 @@ export default class App extends React.Component {
 
   handleFormFieldChange(value, id) {
     this.setState({
-      [id]: value
+      formData: Object.assign({}, this.state.formData, {
+        [id]: value
+      })
     });
   }
 }

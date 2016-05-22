@@ -5,17 +5,13 @@ export default function Form(props) {
     <form>
       {
         props.fields.map(({id, placeholder}, i) => {
-          function handleChange(e) {
-            props.onChange(e.target.value, id);
-          }
           return (
             <input
               key={i}
-              id={id}
-              value={props[id]}
+              value={props.formData[id]}
               type='text'
               placeholder={placeholder}
-              onChange={handleChange}
+              onChange={(e) => {props.onChange(e.target.value, id)}}
             />
           );
         })
