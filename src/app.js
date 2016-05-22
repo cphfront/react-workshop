@@ -5,11 +5,18 @@ import Form from './form.js';
 const fields = [
   {
     id: 'name',
+    inputComponentName: 'TextInput',
     placeholder: 'Enter your name'
   },
   {
     id: 'age',
+    inputComponentName: 'TextInput',
     placeholder: 'Enter your age'
+  },
+  {
+    id: 'gender',
+    inputComponentName: 'Radio',
+    options: ['male', 'female', 'other']
   }
 ];
 
@@ -57,6 +64,14 @@ export default class App extends React.Component {
       formData: Object.assign({}, this.state.formData, {
         [id]: value
       })
+    });
+  }
+
+  // TODO: implement
+  sendFormData() {
+    fetch('marathon.com/api', {
+      method: 'POST',
+      body: JSON.stringify(this.state.formData)
     });
   }
 }

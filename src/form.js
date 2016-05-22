@@ -1,17 +1,19 @@
 import React from 'react';
 
+import * as inputComponents from './inputs.js';
+
 export default function Form(props) {
   return (
     <form>
       {
-        props.fields.map(({id, placeholder}, i) => {
+        props.fields.map((field, i) => {
+          const Comp = inputComponents[field.inputComponentName];
           return (
-            <input
+            <Comp
+              {...field}
               key={i}
-              value={props.formData[id]}
-              type='text'
-              placeholder={placeholder}
-              onChange={(e) => {props.onChange(e.target.value, id)}}
+              value={props.formData[field.id]}
+              onChange={props.onChange}
             />
           );
         })
