@@ -12,7 +12,6 @@ export default function Form(props) {
             <Comp
               {...field}
               key={i}
-              value={props.formData[field.id]}
               onChange={props.onChange}
             />
           );
