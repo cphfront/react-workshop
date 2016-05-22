@@ -1,4 +1,5 @@
 import React from 'react';
+import {findDOMNode} from 'react-dom';
 
 import Form from './form.js';
 
@@ -35,7 +36,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const style = this.state.isActive
       ?
       {backgroundColor: 'teal', color: 'white'}
@@ -49,8 +49,29 @@ export default class App extends React.Component {
           formData={this.state.formData}
           onChange={this.handleFormFieldChange}
         />
+        <div
+          ref='google-map'
+          style={{width: '100px', height: '100px', backgroundColor: '#bada55'}}
+        />
       </div>
     );
+  }
+
+  componentDidMount() {
+    const node = findDOMNode(this.refs['google-map']);
+    const el = document.createElement('p');
+    el.innerHTML = 'hello!';
+    node.appendChild(el);
+    el.addEventListener('click', this.onCustomElementClick);
+    this.el = el;
+  }
+
+  componentWillUnmount() {
+    this.el.removeEventListener('click', this.onCustomElementClick);
+  }
+
+  onCustomElementClick() {
+    alert('hello!');
   }
 
   toggleActiveState() {
