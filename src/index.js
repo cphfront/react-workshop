@@ -1,10 +1,7 @@
-import React from 'react';
-import {render} from 'react-dom';
-import domReady from 'domready';
+import riot from 'riot';
+import MarathonStore from 'MarathonStore';
+import 'tags.js';
 
-import App from './app.js';
+var marathonStore = new MarathonStore()
 
-domReady(() => {
-  const container = document.getElementById('app');
-  render(<App/>, container);
-});
+riot.mount('marathon-app', {store: marathonStore})
