@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Slabo+27px);
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Slabo 27px', serif;
+  position: relative;
+  margin: 0;
+  height: 100%;
+}
+
+header {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1; /* This is really strange - why would I need that? */
+}
+
+svg.canvas {
+  background-color: #eee;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

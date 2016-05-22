@@ -1,77 +1,42 @@
 import React from 'react';
 
-import Form from './form.js';
+import Organ from './organ.js';
 
-const fields = [
-  {
-    id: 'name',
-    inputComponentName: 'TextInput',
-    placeholder: 'Enter your name'
-  },
-  {
-    id: 'age',
-    inputComponentName: 'TextInput',
-    placeholder: 'Enter your age'
-  },
-  {
-    id: 'gender',
-    inputComponentName: 'Radio',
-    options: ['male', 'female', 'other']
-  }
-];
+const BASE_URL = 'http://api.socialsquare.dk/';
+const AUTH_TOKEN = '';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isActive: false,
-      formData: {
-        name: '',
-        age: ''
-      }
+    this.getURL = (path) => {
+      return BASE_URL + path + '/?auth_token=' + AUTH_TOKEN;
     };
-    this.toggleActiveState = this.toggleActiveState.bind(this);
-    this.handleFormFieldChange = this.handleFormFieldChange.bind(this);
+    this.state = {
+      organ: null
+    };
+  }
+
+  componentDidMount() {
+    this.serverRequest = $.get(this.getURL('organs/socialsquare/tree'), function (result) {
+      this.setState({
+        organ: result
+      });
+    }.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.serverRequest.abort();
   }
 
   render() {
-    console.log(this.state);
-    const style = this.state.isActive
-      ?
-      {backgroundColor: 'teal', color: 'white'}
-      :
-      {};
     return (
-      <div style={style} onClick={this.toggleActiveState}>
-        <h1>Marathon Estimate</h1>
-        <Form
-          fields={fields}
-          formData={this.state.formData}
-          onChange={this.handleFormFieldChange}
-        />
+      <div>
+        <header>
+          <h1>&ldquo;Data-driven Recursive Graphics in React!&rdquo;</h1>
+          <h2>{this.state.organ ? this.state.organ.name : 'Loading ...'}</h2>
+        </header>
+        <Organ organ={this.state.organ} />
       </div>
     );
-  }
-
-  toggleActiveState() {
-    this.setState({
-      isActive: !this.state.isActive
-    });
-  }
-
-  handleFormFieldChange(value, id) {
-    this.setState({
-      formData: Object.assign({}, this.state.formData, {
-        [id]: value
-      })
-    });
-  }
-
-  // TODO: implement
-  sendFormData() {
-    fetch('marathon.com/api', {
-      method: 'POST',
-      body: JSON.stringify(this.state.formData)
-    });
   }
 }
