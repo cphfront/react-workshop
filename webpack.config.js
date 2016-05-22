@@ -11,14 +11,21 @@ module.exports = {
     filename: 'index.js'
   },
   module: {
-    loaders: [{
-      test: /\.json$/,
-      loader: 'json'
-    }, {
-      test: /\.jsx?$/,
-      loader: 'babel',
-      exclude: /node_modules/
-    }]
+      loaders: [
+          {
+              test: /\.json$/,
+              loader: 'json'
+          }, {
+              test: /\.jsx?$/,
+              loader: 'babel',
+              exclude: /node_modules/
+          },
+          {
+              test: /\.css$/,
+              loader: 'style!css?modules',
+              include: /flexboxgrid/,
+          }
+      ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css', '.json', '.scss']
